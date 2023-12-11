@@ -15,9 +15,9 @@ const NavLinks: FunctionComponent<NavLinksProps> = ({data}) => {
     const pathName = usePathname();
 
     const routes = data.map((route)=>({
-        href: `categories/${route.id}`,
+        href: `/category/${route.id}`,
         label: route.name,
-        active: pathName === `categories/${route.id}`
+        active: pathName === `/category/${route.id}`
     }))
     return ( 
         <nav className="mx-6 items-center flex space-x-4 lg:space-x-6">

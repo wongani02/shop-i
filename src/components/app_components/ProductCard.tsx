@@ -2,18 +2,34 @@
 
 import { Product } from "@/types";
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FunctionComponent, MouseEventHandler } from "react";
 import IconButton from "../custom_ui/IconButton";
 import { Expand, ShoppingCart } from "lucide-react";
 import Currency from "../custom_ui/Currency";
+import { useRouter } from "next/navigation";
+import usePreviewModal from "@/hooks/use-preview-modal";
 
 interface ProductCardProps {
     product: Product
 }
  
 const ProductCard: FunctionComponent<ProductCardProps> = ({product}) => {
+
+    const previewModal = usePreviewModal();
+    const router = useRouter();
+
+    const handleClick = () =>{
+        router.push(`product/${product.id}`)
+    }
+
+    const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
+
+        previewModal.onOpen(product);
+    };
+
     return ( 
-        <div className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+        <div onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
             {/* images and actions */}
             <div className="aspect-square rounded-xl bg-gray-100 relative">
                 <Image
@@ -26,7 +42,7 @@ const ProductCard: FunctionComponent<ProductCardProps> = ({product}) => {
                     <div className="flex gap-6 justify-center">
                         <IconButton 
                         icon={<Expand size={20} className="text-gray-600"/>}
-                        onClick={()=>{}}
+                        onClick={onPreview}
                         />
                         <IconButton 
                         icon={<ShoppingCart size={20} className="text-gray-600"/>}

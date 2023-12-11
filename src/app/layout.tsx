@@ -5,6 +5,7 @@ import { GeistMono } from 'geist/font/mono';
 import './globals.css'
 import Footer from '@/components/app_components/Footer'
 import Navbar from '@/components/app_components/Navbar'
+import ModalProvider from '@/providers/ModalProvider';
 
 const font = Urbanist({ subsets: ['latin'] })
 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
+        <ModalProvider/>
         <Navbar/>
         {children}
         <Footer/>
